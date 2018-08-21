@@ -10,18 +10,14 @@ import UIKit
 
 class TodoCell: UITableViewCell {
 
-    @IBOutlet weak var userIdLabel: UILabel!
-    @IBOutlet weak var incompleteTodosLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var completedLabel: UILabel!
     
-    func configureCell(todos: [Todo]) {
-        var incompleted = 0
-        for todo in todos {
-            if !todo.completed {
-                incompleted += 1
-            }
-        }
-        userIdLabel.text = "User ID: \(todos[0].userId)"
-        incompleteTodosLabel.text = "Incomplete Todos: \(incompleted)"
+    func configureCell(todo: Todo) {
+        idLabel.text = "ID: \(todo.id)"
+        titleLabel.text = "Title: \(todo.title)"
+        completedLabel.text = "Completed: \(todo.completed)"
     }
 
 }

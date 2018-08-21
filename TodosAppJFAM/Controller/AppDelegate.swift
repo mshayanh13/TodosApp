@@ -44,5 +44,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-var todos = [Todo]()
-
+var todosByUserId = Dictionary<Int, [Todo]>()

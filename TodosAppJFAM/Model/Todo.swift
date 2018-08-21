@@ -11,28 +11,27 @@ import Alamofire
 import SwiftyJSON
 
 struct Todo {
-    let userId: Int
     let id: Int
     let title: String
     let completed: Bool
     
-    static func getTodosByUserId(todos: [Todo]) -> Dictionary<Int, [Todo]> {
-        var todosByUserId = Dictionary<Int, [Todo]>()
-        
-        for todo in todos {
-            var newArray = [Todo]()
-            if let todoArray = todosByUserId[todo.userId] {
-                newArray.append(contentsOf: todoArray)
-                newArray.append(todo)
-                
-            } else {
-                newArray.append(todo)
-            }
-            todosByUserId[todo.userId] = newArray
-        }
-        
-        return todosByUserId
-    }
+//    static func getTodosByUserId(todos: [Todo]) -> Dictionary<Int, [Todo]> {
+//        var todosByUserId = Dictionary<Int, [Todo]>()
+//        
+//        for todo in todos {
+//            var newArray = [Todo]()
+//            if let todoArray = todosByUserId[todo.userId] {
+//                newArray.append(contentsOf: todoArray)
+//                newArray.append(todo)
+//                
+//            } else {
+//                newArray.append(todo)
+//            }
+//            todosByUserId[todo.userId] = newArray
+//        }
+//        
+//        return todosByUserId
+//    }
     
     static func downloadTodos(complete: @escaping DownloadComplete) {
         
@@ -45,8 +44,18 @@ struct Todo {
                         if let id = todoJSON["id"].int {
                             if let title = todoJSON["title"].string {
                                 if let completed = todoJSON["completed"].bool {
-                                    let todo = Todo(userId: userId, id: id, title: title, completed: completed)
-                                    todos.append(todo)
+                                    let todo = Todo(id: id, title: title, completed: completed)
+                                    
+                                    var newArray = [Todo]()
+                                    if let todoArray = todosByUserId[userId] {
+                                        newArray.append(contentsOf: todoArray)
+                                        newArray.append(todo)
+                                        
+                                    } else {
+                                        newArray.append(todo)
+                                    }
+                                    todosByUserId[userId] = newArray
+                                    
                                 }
                             }
                         }
